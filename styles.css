@@ -1,0 +1,216 @@
+/* styles.css */
+body { font-family: Arial, sans-serif; background:#f5f7fb; margin:0; padding:20px; }
+.card { max-width:1000px; margin:20px auto; background:#fff; padding:18px; border-radius:8px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
+h1,h2 { color:#1f2937; }
+input { padding:8px; margin:6px; border:1px solid #e2e8f0; border-radius:6px; }
+button { padding:8px 12px; margin:6px; border-radius:6px; border:none; background:#1f8a70; color:white; cursor:pointer; }
+button:hover { opacity:0.95; }
+.row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:10px; }
+#membersList div, #billsList div, #notificationsList div, #supplementsList div, #dietList div, #logsList div { padding:8px 0; border-bottom:1px dashed #eee; }
+.top-row { display:flex; justify-content:flex-end; gap:8px; margin-bottom:10px; }
+.muted { color:#6b7280; margin-top:8px; }
+
+/* Admin page styles */
+.member-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 8px;
+}
+
+.member-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.member-info .email {
+  color: #6b7280;
+}
+
+.member-info .package {
+  color: #059669;
+  font-weight: 500;
+}
+
+.member-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.member-actions button {
+  padding: 4px 8px;
+  font-size: 14px;
+}
+
+.editMember {
+  background-color: #3b82f6;
+}
+
+.delMember {
+  background-color: #ef4444;
+}
+
+.no-data {
+  text-align: center;
+  color: #6b7280;
+  padding: 20px;
+}
+
+.error {
+  color: #ef4444;
+  text-align: center;
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+section h2 {
+  color: #1f2937;
+  margin-bottom: 16px;
+}
+
+.row input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Notification styles */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  border-radius: 4px;
+  color: white;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s ease-in-out;
+  z-index: 1000;
+  max-width: 350px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.notification.success {
+  background-color: #10B981;
+}
+
+.notification.error {
+  background-color: #EF4444;
+}
+
+.notification.info {
+  background-color: #3B82F6;
+}
+
+.connection-status {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #EF4444;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-weight: 500;
+  z-index: 1000;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Loading indicator */
+.loading-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Input field styles */
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #374151;
+  font-weight: 500;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #D1D5DB;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  border-color: #3B82F6;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Button styles enhancement */
+button {
+  padding: 10px 16px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+button:disabled {
+  background-color: #9CA3AF;
+  cursor: not-allowed;
+}
+
+button:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:not(:disabled):active {
+  transform: translateY(0);
+}
