@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Member Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Inline SVG favicon to avoid /favicon.ico 404s -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23007ACC'/%3E%3Ctext x='8' y='11' font-size='10' fill='white' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <main class="card">
+    <h1>Member Dashboard</h1>
+    <div class="top-row">
+      <button id="logoutMemberBtn">Logout</button>
+    </div>
+
+    <section>
+      <h2>My Details</h2>
+      <div id="myDetails"></div>
+    </section>
+
+    <section>
+      <h2>My Bills / Receipts</h2>
+      <div id="myBills"></div>
+    </section>
+
+    <section>
+      <h2>Notifications</h2>
+      <div id="myNotifications"></div>
+    </section>
+
+    <section>
+      <h2>Supplements</h2>
+      <div id="memberSupplements"></div>
+    </section>
+
+    <section>
+      <h2>Diet Plan</h2>
+      <div id="myDiet"></div>
+    </section>
+
+    <section>
+      <h2>Search Records</h2>
+      <input id="searchQuery" placeholder="Search members by name or email">
+      <button id="searchBtn">Search</button>
+      <div id="searchResults"></div>
+    </section>
+  </main>
+
+  <!-- Loading indicator -->
+  <div id="loading-indicator" class="loading-indicator" style="display: none;">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Connection status -->
+  <div id="connection-status" class="connection-status" style="display: none;">
+    You are currently offline. Please check your internet connection.
+  </div>
+
+  <!-- Firebase App -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  
+  <!-- Application Scripts -->
+  <script type="module" src="firebase-config.js"></script>
+  <script type="module" src="helpers.js"></script>
+  <script type="module" src="member.js"></script>
+
+  <script>
+    // Handle connection status display
+    function updateConnectionStatus(isOnline) {
+        const statusDiv = document.getElementById('connection-status');
+        if (!isOnline) {
+            statusDiv.style.display = 'block';
+            statusDiv.textContent = 'You are currently offline. Please check your internet connection.';
+        } else {
+            statusDiv.style.display = 'none';
+        }
+    }
+
+    // Listen for connection status changes
+    window.addEventListener('online', () => updateConnectionStatus(true));
+    window.addEventListener('offline', () => updateConnectionStatus(false));
+    
+    // Initial connection check
+    updateConnectionStatus(navigator.onLine);
+
+    // Listen for custom connection events from Firebase
+    document.addEventListener('connection-status-change', (event) => {
+        updateConnectionStatus(event.detail.isOnline);
+    });
+  </script>
+</body>
+</html>
