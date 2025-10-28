@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Inline SVG favicon to avoid /favicon.ico 404s -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23007ACC'/%3E%3Ctext x='8' y='11' font-size='10' fill='white' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <main class="card">
+        <h1>Gym Management System</h1>
+
+        <section id="auth-section">
+            <div class="input-group">
+                <label for="roleSelect">Role</label>
+                <select id="roleSelect">
+                    <option value="member">Member</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="you@example.com" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="password (min. 6 characters)" required>
+            </div>
+
+            <div class="row">
+                <button id="registerBtn" type="button">Register</button>
+                <button id="loginBtn" type="button">Login</button>
+            </div>
+            <p id="authMsg" class="muted"></p>
+        </section>
+        
+        <!-- Notification container -->
+        <div id="notification" class="notification"></div>
+    </main>
+
+    <!-- Error message template -->
+    <template id="error-template">
+        <div class="error-message">
+            <p class="error-text"></p>
+            <button class="error-close">×</button>
+        </div>
+    </template>
+
+    <!-- Loading indicator -->
+    <div id="loading-indicator" class="loading-indicator" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Connection status -->
+    <div id="connection-status" class="connection-status" style="display: none;">
+        You are currently offline. Please check your internet connection.
+    </div>
+
+    <!-- Firebase App -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <!-- Application Scripts -->
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="helpers.js"></script>
+    <script type="module" src="auth.js"></script>
+
+    <script>
+        // Handle connection status display
+        function updateConnectionStatus(isOnline) {
+            const statusDiv = document.getElementById('connection-status');
+            if (!isOnline) {
+                statusDiv.style.display = 'block';
+                statusDiv.textContent = 'You are currently offline. Please check your internet connection.';
+            } else {
+                statusDiv.style.display = 'none';
+            }
+        }
+
+        // Listen for connection status changes
+        window.addEventListener('online', () => updateConnectionStatus(true));
+        window.addEventListener('offline', () => updateConnectionStatus(false));
+        
+        // Initial connection check
+        updateConnectionStatus(navigator.onLine);
+
+        // Listen for custom connection events from Firebase
+        document.addEventListener('connection-status-change', (event) => {
+            updateConnectionStatus(event.detail.isOnline);
+        });
+    </script>
+</body>
+</html>
